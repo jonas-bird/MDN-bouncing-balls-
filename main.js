@@ -6,6 +6,10 @@ const ctx = canvas.getContext('2d');
 const width = canvas.width = window.innerWidth;
 const height = canvas.height = window.innerHeight;
 
+
+// get the score counter
+const scoreCounter = document.querySelector('p');
+
 // function to generate random number
 
 function random(min, max) {
@@ -18,7 +22,8 @@ function random(min, max) {
 function randomRGB() {
   return `rgb(${random(0, 255)},${random(0, 255)},${random(0, 255)})`;
 }
-
+// keep track of the number of balls visible
+let numberBalls = 0;
 // define a shape class for the balls and the player controlled evilCircle to inherit from
 class Shape {
 
@@ -41,6 +46,9 @@ class Ball extends Shape {
     this.color = color;
     this.size = size;
     this.exists = true;
+    numberBalls += 1;
+    // update score counter
+    scoreCounter.textContent = `Ball count: ${numberBalls}`;
   }
 
   draw() {
@@ -152,6 +160,8 @@ class EvilCircle extends Shape {
 
         if (distance < this.size + ball.size) {
           ball.exists = false;
+          numberBalls -= 1;
+          scoreCounter.textContent = `Ball count: ${numberBalls}`;
         }
       }
     }
