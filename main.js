@@ -19,15 +19,28 @@ function randomRGB() {
   return `rgb(${random(0, 255)},${random(0, 255)},${random(0, 255)})`;
 }
 
-class Ball {
+// define a shape class for the balls and the player controlled evilCircle to inherit from
+class Shape {
 
-  constructor(x, y, velX, velY, color, size) {
+  constructor (x, y, velX, velY) {
+
     this.x = x;
     this.y = y;
     this.velX = velX;
     this.velY = velY;
+    }
+}
+
+// class to represent the colored balls that bounce around
+class Ball extends Shape {
+
+  exists;
+
+  constructor(x, y, velX, velY, color, size) {
+    super(x, y, velX, velY);
     this.color = color;
     this.size = size;
+    this.exists = true;
   }
 
   draw() {
@@ -60,7 +73,7 @@ class Ball {
 
   collisionDetect() {
     for (const ball of balls) {
-      if (!(this === ball)){
+      if (!(this === ball) && ball.exists){
         const dx = this.x - ball.x;
         const dy = this.y - ball.y;
         const distance = Math.sqrt(dx * dx + dy * dy);
@@ -92,6 +105,7 @@ while (balls.length < 25) {
   balls.push(ball);
 }
 
+// main animation loop that redraws the screen and updates the position of the balls
 function loop() {
    ctx.fillStyle = 'rgba(0, 0, 0, 0.25)';
    ctx.fillRect(0, 0, width, height);
