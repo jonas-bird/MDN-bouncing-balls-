@@ -73,7 +73,7 @@ class Ball extends Shape {
 
   collisionDetect() {
     for (const ball of balls) {
-      if (!(this === ball) && ball.exists){
+      if (!(this === ball) && ball.exists === true){
         const dx = this.x - ball.x;
         const dy = this.y - ball.y;
         const distance = Math.sqrt(dx * dx + dy * dy);
@@ -123,7 +123,7 @@ class EvilCircle extends Shape {
   }
 
  // prevents the "EvilCircle" from going off the edge of the screen
- checkBounds() {
+  checkBounds() {
     if ((this.x + this.size) >= width) {
       this.x = this.x - this.size;
     }
@@ -141,8 +141,25 @@ class EvilCircle extends Shape {
    }
 
   }
+  // method that controls what happens when the player controled "EvilCircle"
+  // encounters one of the balls
+  collisionDetect() {
+    for (const ball of balls) {
+      if (ball.exists === true){
+        const dx = this.x - ball.x;
+        const dy = this.y - ball.y;
+        const distance = Math.sqrt(dx * dx + dy * dy);
 
-}
+        if (distance < this.size + ball.size) {
+          ball.exists = false;
+        }
+      }
+    }
+  }
+
+
+
+ }
 
 
 
@@ -173,14 +190,15 @@ function loop() {
   ctx.fillRect(0, 0, width, height);
 
   for (const ball of balls) {
-     ball.draw();
-     ball.update();
-     ball.collisionDetect();
-   }
+    if(ball.exists === true){
+      ball.draw();
+      ball.update();
+      ball.collisionDetect();
+    }}
   // update the players position and check for the edge of the screen and collisions
   player1.draw();
   player1.checkBounds();
-
+  player1.collisionDetect();
   requestAnimationFrame(loop);
 }
 
