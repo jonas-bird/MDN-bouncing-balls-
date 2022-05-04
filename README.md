@@ -1,6 +1,8 @@
 # MDN Intro to JavaScript Objects: Bouncing Balls 
 
-Assessment from [Mozilla Developer Network](https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Objects/Adding_bouncing_balls_features)  
+Assessment from [Mozilla Developer Network](https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Objects/Adding_bouncing_balls_features)    
+
+View page on [GitHub Pages](https://jonas-bird.github.io/MDN-bouncing-balls-/)  
 
 ## Description  
 
